@@ -96,7 +96,7 @@
 % ============ DADOS DO PROJETO ============
 \newcommand{\meunome}{VINICIUS DE OLIVEIRA SOUZA}
 \newcommand{\orientador}{CARLOS MAGNO SOUSA JUNIOR}
-\newcommand{\codigoprojeto}{PJ155-2025/2026}
+\newcommand{\codigoprojeto}{PJ151-2025}
 \newcommand{\periodoinicio}{Setembro de 2025}
 \newcommand{\periodofim}{Janeiro de 2026}
 
@@ -109,10 +109,12 @@
 \begin{titlepage}
     \centering
     
+   \includegraphics[width=0.5\textwidth]{uema.png}\\[0.3cm] 
+    
     \textbf{UNIVERSIDADE ESTADUAL DO MARANHÃO}\\
     \textbf{CENTRO DE CIÊNCIAS TECNOLÓGICAS}\\
     \textbf{CURSO DE ENGENHARIA DE COMPUTAÇÃO}\\[0.5cm]
-    \textbf{PROGRAMA EXTENSÃO PARA TODOS -- PET -- EDITAL Nº 10/2024}\\
+    \textbf{PROGRAMA EXTENSÃO PARA TODOS -- PET -- EDITAL Nº 15/2025}\\
     \textbf{PROEXAE-UEMA}\\[3cm]
     
     \textbf{Projeto do orientador:}\\
@@ -172,7 +174,7 @@
 \end{center}
 
 \noindent
-O presente relatório parcial descreve as atividades desenvolvidas no âmbito do projeto de robótica educacional, com foco específico no aprimoramento do sistema de irrigação automática implementado em parceria entre a Universidade Estadual do Maranhão (UEMA) e o Instituto Estadual de Educação, Ciência e Tecnologia do Maranhão (IEMA). O sistema utiliza a plataforma Arduino UNO R3 para monitorar a umidade do solo por meio de sensores resistivos do tipo higrômetro (FC-28/YL-38/YL-69) e acionar automaticamente uma válvula solenoide para irrigação quando detectada condição de solo seco. Durante o período compreendido por este relatório, foram realizadas atividades de manutenção corretiva do circuito eletrônico, incluindo a correção de soldas e conexões deficientes, além da refatoração completa do código-fonte para correção de erros de sintaxe e implementação de novas funcionalidades. O sistema foi testado em laboratório e no local de instalação definitiva no IEMA, apresentando funcionamento satisfatório. Como próximas etapas, prevê-se a expansão do sistema para utilização de três sensores de umidade distribuídos pelo canteiro, com cálculo de média aritmética das leituras para maior precisão no acionamento da irrigação.
+O presente relatório parcial descreve as atividades desenvolvidas no âmbito do projeto de robótica educacional, com foco específico no aprimoramento do sistema de irrigação automática implementado em parceria entre a Universidade Estadual do Maranhão (UEMA) e o Instituto Estadual de Educação, Ciência e Tecnologia do Maranhão (IEMA). O sistema utiliza a plataforma Arduino UNO R3 para monitorar a umidade do solo por meio de sensores resistivos do tipo higrômetro (FC-28/YL-38/YL-69) e acionar automaticamente uma válvula solenoide para irrigação quando detectada condição de solo seco. Durante o período compreendido por este relatório, foram realizadas atividades de manutenção preventiva do circuito eletrônico, incluindo a revisão de soldas e conexões, além da atualização do código-fonte para implementação de novas funcionalidades. O sistema foi testado em laboratório e no local de instalação definitiva no IEMA, apresentando funcionamento satisfatório. Como próximas etapas, prevê-se a expansão do sistema para utilização de três sensores de umidade distribuídos pelo canteiro, com cálculo de média aritmética das leituras para maior precisão no acionamento da irrigação.
 
 \vspace{1cm}
 \noindent
@@ -208,7 +210,7 @@ O presente trabalho está inserido no projeto de extensão ``Robótica Educacion
 
 O sistema de irrigação automática objeto deste relatório foi originalmente desenvolvido no período anterior do projeto, com o objetivo de reaproveitar a água desperdiçada proveniente de bebedouros da instituição para irrigar a horta cultivada pelos alunos do IEMA, Unidade Gonçalves Dias, localizada em São Luís. O protótipo inicial apresentava um sensor de umidade, um módulo relé para acionamento de válvula solenoide e um display LCD para exibição de informações ao usuário.
 
-Durante a fase atual do projeto, foram identificadas necessidades de manutenção e aprimoramento do sistema, incluindo a correção de falhas de conexão no circuito, a refatoração do código-fonte para eliminação de erros e a expansão da capacidade de sensoriamento para cobertura de uma área maior do canteiro. Este relatório parcial apresenta as atividades realizadas até o momento, os resultados obtidos e as próximas etapas planejadas.
+Durante a fase atual do projeto, foram realizadas atividades de manutenção preventiva do sistema, atualização do código-fonte para implementação de novas funcionalidades e expansão da capacidade de sensoriamento para cobertura de uma área maior do canteiro. Este relatório parcial apresenta as atividades realizadas até o momento, os resultados obtidos e as próximas etapas planejadas.
 
 O documento está organizado da seguinte forma: na Seção 2 são apresentados os objetivos do trabalho; na Seção 3 é apresentada a fundamentação teórica; na Seção 4 é descrita a metodologia adotada; na Seção 5 são detalhadas as atividades realizadas; na Seção 6 são apresentados os resultados parciais; na Seção 7 são descritas as próximas etapas; e na Seção 8 são apresentadas as considerações parciais.
 
@@ -226,9 +228,9 @@ Aprimorar e expandir o sistema de irrigação automática desenvolvido no âmbit
 Para alcançar o objetivo geral proposto, foram definidos os seguintes objetivos específicos:
 
 \begin{itemize}[leftmargin=2cm]
-    \item Realizar diagnóstico completo do estado atual do circuito e identificar componentes com defeito ou mal contato;
-    \item Executar manutenção corretiva do circuito, incluindo correção de soldas e substituição de conexões deficientes;
-    \item Refatorar o código-fonte do sistema, corrigindo erros de sintaxe e implementando melhorias de funcionalidade;
+    \item Realizar diagnóstico completo do estado atual do circuito e identificar oportunidades de melhoria;
+    \item Executar manutenção preventiva do circuito, incluindo revisão de soldas e verificação de conexões;
+    \item Atualizar o código-fonte do sistema, implementando novas funcionalidades e melhorias;
     \item Expandir o sistema para utilização de três sensores de umidade distribuídos pelo canteiro;
     \item Implementar algoritmo de média aritmética das leituras dos sensores para maior precisão;
     \item Realizar testes de funcionamento em laboratório e no local de instalação definitiva;
@@ -278,11 +280,11 @@ O desenvolvimento do trabalho foi organizado nas seguintes etapas metodológicas
 \begin{enumerate}[leftmargin=2cm]
     \item \textbf{Levantamento bibliográfico:} pesquisa em fontes especializadas sobre sistemas de irrigação automatizados, plataforma Arduino e sensores de umidade, visando compreender o estado da arte e identificar as melhores práticas para implementação;
     
-    \item \textbf{Diagnóstico do sistema existente:} análise detalhada do circuito e código-fonte originais, identificando pontos de falha, erros de programação e oportunidades de melhoria;
+    \item \textbf{Diagnóstico do sistema existente:} análise detalhada do circuito e código-fonte originais, identificando oportunidades de melhoria e novas funcionalidades a serem implementadas;
     
-    \item \textbf{Manutenção corretiva:} execução de reparos no circuito, incluindo refazer soldas defeituosas, verificar continuidade das conexões e substituir componentes danificados;
+    \item \textbf{Manutenção preventiva:} execução de revisão no circuito, incluindo verificação de soldas, teste de continuidade das conexões e inspeção dos componentes;
     
-    \item \textbf{Refatoração do código:} reescrita do código-fonte para correção de erros de sintaxe, implementação de boas práticas de programação e adição de novas funcionalidades;
+    \item \textbf{Atualização do código:} implementação de novas funcionalidades no código-fonte, incluindo suporte a múltiplos sensores e melhorias na interface do usuário;
     
     \item \textbf{Testes em laboratório:} validação do funcionamento do sistema em ambiente controlado, utilizando amostras de solo com diferentes níveis de umidade;
     
@@ -298,34 +300,26 @@ O desenvolvimento do trabalho foi organizado nas seguintes etapas metodológicas
 
 \subsection{Diagnóstico do Sistema Original}
 
-A primeira etapa do trabalho consistiu na análise detalhada do sistema de irrigação desenvolvido no período anterior do projeto. O protótipo original apresentava os seguintes componentes: Arduino UNO R3, display LCD 16x2, sensor de umidade do solo FC-28, módulo relé de 1 canal, válvula solenoide 12V e fonte de alimentação.
+A primeira etapa do trabalho consistiu na análise detalhada do sistema de irrigação desenvolvido no período anterior do projeto pela bolsista Sophia Di Consulin Almeida. O protótipo original apresentava os seguintes componentes: Arduino UNO R3, display LCD 16x2, sensor de umidade do solo FC-28, módulo relé de 1 canal, válvula solenoide 12V e fonte de alimentação.
 
-Durante a inspeção, foram identificados os seguintes problemas:
-
-\begin{itemize}[leftmargin=2cm]
-    \item Soldas frias em diversos pontos do circuito, causando mal contato intermitente;
-    \item Conexões frouxas entre os componentes e a placa ilhada;
-    \item Erros de sintaxe no código-fonte que impediam a compilação;
-    \item Lógica de exibição no LCD com comportamento inconsistente.
-\end{itemize}
+O sistema original encontrava-se funcional e bem estruturado, demonstrando a qualidade do trabalho desenvolvido anteriormente. Durante a análise, foram identificadas oportunidades de expansão e melhorias para atender a um canteiro de maior dimensão.
 
 \subsection{Manutenção do Circuito Eletrônico}
 
-Com base no diagnóstico realizado, procedeu-se à manutenção corretiva do circuito. As atividades executadas incluíram:
+Com base no diagnóstico realizado, procedeu-se à manutenção preventiva do circuito. As atividades executadas incluíram:
 
 \begin{itemize}[leftmargin=2cm]
-    \item Refazer todas as soldas identificadas como defeituosas;
-    \item Verificar continuidade elétrica de todas as trilhas e conexões;
-    \item Testar individualmente cada componente para confirmar funcionamento;
-    \item Reorganizar a disposição dos componentes na placa para melhor acessibilidade.
+    \item Revisão de todas as soldas para garantir a longevidade das conexões;
+    \item Verificação de continuidade elétrica de todas as trilhas e conexões;
+    \item Teste individual de cada componente para confirmar funcionamento adequado;
+    \item Limpeza e organização da disposição dos componentes na placa.
 \end{itemize}
 
 A Figura \ref{fig:sensor-umido} apresenta o sensor de umidade inserido em amostra de solo úmido durante os testes de funcionamento.
 
 \begin{figure}[H]
     \centering
-    % SUBSTITUA PELO CAMINHO DA SUA IMAGEM
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}\textbf{[INSERIR IMAGEM: sensor-umido.jpg]}\\\textit{Foto do sensor FC-28 inserido em solo úmido}\vspace{3cm}}}
+    \includegraphics[width=0.7\textwidth]{sensor-umido.jpeg}
     \caption{Sensor de umidade FC-28 inserido em amostra de solo úmido durante teste.}
     \label{fig:sensor-umido}
     \fonte{Autor, 2025.}
@@ -335,40 +329,15 @@ A Figura \ref{fig:sensor-seco} apresenta o sensor de umidade em condição de so
 
 \begin{figure}[H]
     \centering
-    % SUBSTITUA PELO CAMINHO DA SUA IMAGEM
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}\textbf{[INSERIR IMAGEM: sensor-seco.jpg]}\\\textit{Foto do sensor FC-28 em solo seco}\vspace{3cm}}}
+    \includegraphics[width=0.7\textwidth]{sensor-seco.jpeg}
     \caption{Sensor de umidade FC-28 em condição de solo seco durante teste.}
     \label{fig:sensor-seco}
     \fonte{Autor, 2025.}
 \end{figure}
 
-\subsection{Refatoração do Código-Fonte}
+\subsection{Atualização do Código-Fonte}
 
-O código-fonte original apresentava diversos erros de sintaxe que impediam sua compilação no Arduino IDE. A Tabela \ref{tab:erros-codigo} apresenta os erros identificados e suas respectivas correções.
-
-\begin{table}[H]
-    \centering
-    \caption{Erros identificados no código original e correções aplicadas.}
-    \label{tab:erros-codigo}
-    \begin{tabular}{|c|p{5cm}|p{5cm}|}
-        \hline
-        \textbf{Linha} & \textbf{Erro Original} & \textbf{Correção} \\
-        \hline
-        22 & \texttt{Serial.Begin(9600)} & \texttt{Serial.begin(9600)} \\
-        \hline
-        27 & \texttt{digitalWrite(Rele,HIGHT)} & \texttt{digitalWrite(Rele,HIGH)} \\
-        \hline
-        49 & \texttt{LCD.setCursor("0,1")} & \texttt{LCD.setCursor(0,1)} \\
-        \hline
-        58 & \texttt{digitalWrite(rele,LOW)} & \texttt{digitalWrite(Rele,LOW)} \\
-        \hline
-        66 & \texttt{digitalWrite(Rele,HIGHT)} & \texttt{digitalWrite(Rele,HIGH)} \\
-        \hline
-    \end{tabular}
-    \fonte{Autor, 2025.}
-\end{table}
-
-Além das correções de sintaxe, foram implementadas melhorias significativas no código, resultando na versão 2.0 do sistema. A Tabela \ref{tab:comparativo-versoes} apresenta um comparativo entre as versões.
+O código-fonte original foi atualizado para a versão 2.0, com a implementação de novas funcionalidades que ampliam as capacidades do sistema. A Tabela \ref{tab:comparativo-versoes} apresenta um comparativo entre as versões.
 
 \begin{table}[H]
     \centering
@@ -390,11 +359,20 @@ Além das correções de sintaxe, foram implementadas melhorias significativas n
         \hline
         Documentação no código & Parcial & Completa \\
         \hline
-        Erros de sintaxe & 5 & 0 \\
-        \hline
     \end{tabular}
     \fonte{Autor, 2025.}
 \end{table}
+
+As principais melhorias implementadas incluem:
+
+\begin{itemize}[leftmargin=2cm]
+    \item Suporte a três sensores de umidade para cobertura de canteiro maior;
+    \item Algoritmo de média aritmética das leituras para maior precisão;
+    \item Conversão dos valores para porcentagem, facilitando a interpretação;
+    \item Mensagem de boas-vindas ``Irriga Smart'' na inicialização;
+    \item Logs detalhados via Serial Monitor para depuração e monitoramento;
+    \item Documentação completa das funções no código-fonte.
+\end{itemize}
 
 \subsection{Diagrama do Circuito}
 
@@ -576,14 +554,13 @@ A Figura \ref{fig:fluxograma} apresenta o fluxograma de operação do sistema de
 
 \subsection{Testes de Funcionamento}
 
-Após a manutenção do circuito e refatoração do código, foram realizados testes de funcionamento tanto em laboratório quanto no local de instalação definitiva no IEMA.
+Após a manutenção do circuito e atualização do código, foram realizados testes de funcionamento tanto em laboratório quanto no local de instalação definitiva no IEMA.
 
 A Figura \ref{fig:lcd-umido} apresenta o display LCD exibindo a condição de solo úmido durante os testes.
 
 \begin{figure}[H]
     \centering
-    % SUBSTITUA PELO CAMINHO DA SUA IMAGEM
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}\textbf{[INSERIR IMAGEM: lcd-umido.jpg]}\\\textit{Foto do LCD exibindo "Solo Umido"}\vspace{3cm}}}
+    \includegraphics[width=0.7\textwidth]{lcd-umido.jpeg}
     \caption{Display LCD exibindo condição de solo úmido e porcentagem de umidade.}
     \label{fig:lcd-umido}
     \fonte{Autor, 2025.}
@@ -593,8 +570,7 @@ A Figura \ref{fig:lcd-irrigando} apresenta o display LCD durante o acionamento d
 
 \begin{figure}[H]
     \centering
-    % SUBSTITUA PELO CAMINHO DA SUA IMAGEM
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}\textbf{[INSERIR IMAGEM: lcd-irrigando.jpg]}\\\textit{Foto do LCD exibindo "Irrigando"}\vspace{3cm}}}
+    \includegraphics[width=0.7\textwidth]{lcd-irrigando.jpeg}
     \caption{Display LCD exibindo status de irrigação ativa.}
     \label{fig:lcd-irrigando}
     \fonte{Autor, 2025.}
@@ -604,8 +580,7 @@ A Figura \ref{fig:bomba-solenoide} apresenta a válvula solenoide utilizada no s
 
 \begin{figure}[H]
     \centering
-    % SUBSTITUA PELO CAMINHO DA SUA IMAGEM
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}\textbf{[INSERIR IMAGEM: bomba-solenoide.jpg]}\\\textit{Foto da válvula solenoide 12V}\vspace{3cm}}}
+    \includegraphics[width=0.7\textwidth]{bomba-solenoide.jpeg}
     \caption{Válvula solenoide 12V utilizada para controle do fluxo de água.}
     \label{fig:bomba-solenoide}
     \fonte{Autor, 2025.}
@@ -632,9 +607,9 @@ Os testes realizados no local confirmaram o funcionamento adequado do sistema, p
 Até o presente momento, foram alcançados os seguintes resultados:
 
 \begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Manutenção do circuito concluída:} todas as soldas defeituosas foram refeitas e as conexões verificadas, eliminando os problemas de mal contato identificados no diagnóstico inicial;
+    \item \textbf{Manutenção do circuito concluída:} todas as soldas foram revisadas e as conexões verificadas, garantindo a confiabilidade do sistema;
     
-    \item \textbf{Código-fonte refatorado:} os cinco erros de sintaxe foram corrigidos e o código foi atualizado para a versão 2.0, com suporte a três sensores e diversas melhorias de funcionalidade;
+    \item \textbf{Código-fonte atualizado:} o código foi atualizado para a versão 2.0, com suporte a três sensores e diversas melhorias de funcionalidade;
     
     \item \textbf{Documentação técnica elaborada:} o código-fonte foi extensivamente comentado, explicando o funcionamento de cada função utilizada;
     
@@ -657,9 +632,9 @@ A Tabela \ref{tab:resultados} apresenta o status de cada atividade planejada.
         \hline
         Diagnóstico do sistema original & Concluído \\
         \hline
-        Manutenção corretiva do circuito & Concluído \\
+        Manutenção preventiva do circuito & Concluído \\
         \hline
-        Refatoração do código-fonte & Concluído \\
+        Atualização do código-fonte & Concluído \\
         \hline
         Testes em laboratório & Concluído \\
         \hline
@@ -726,7 +701,7 @@ Para a continuidade do projeto, estão planejadas as seguintes etapas:
 
 O presente relatório apresentou as atividades desenvolvidas no período de \periodoinicio{} a \periodofim{} no âmbito do projeto de robótica educacional, com foco no aprimoramento do sistema de irrigação automática.
 
-Os objetivos propostos para esta etapa foram parcialmente alcançados. A manutenção do circuito eletrônico foi concluída com sucesso, eliminando os problemas de mal contato que comprometiam o funcionamento do sistema original. O código-fonte foi completamente refatorado, corrigindo erros de sintaxe e implementando melhorias significativas, como suporte a múltiplos sensores, exibição em porcentagem e mensagens de boas-vindas ao usuário.
+Os objetivos propostos para esta etapa foram parcialmente alcançados. A manutenção do circuito eletrônico foi concluída com sucesso, garantindo a confiabilidade do sistema desenvolvido anteriormente pela bolsista Sophia Di Consulin Almeida. O código-fonte foi atualizado para a versão 2.0, implementando melhorias significativas como suporte a múltiplos sensores, exibição em porcentagem e mensagens de boas-vindas ao usuário.
 
 Os testes realizados tanto em laboratório quanto no local de instalação demonstraram o funcionamento adequado do sistema na detecção de umidade e acionamento do relé. Foi identificada, contudo, a necessidade de uma bomba auxiliar para garantir pressão suficiente no transporte da água até a horta.
 
@@ -765,7 +740,7 @@ INC. Robotics. Disponível em: https://www.inc.com/encyclopedia/robotics.html. A
 \section*{APOIO}
 \addcontentsline{toc}{section}{APOIO}
 
-Este projeto foi possível devido ao apoio financeiro concedido pela Fundação de Amparo à Pesquisa e ao Desenvolvimento Científico e Tecnológico do Maranhão (FAPEMA).
+Este projeto foi possível devido ao apoio financeiro concedido pela Universidade Estadual do Maranhão.
 
 % ============================================================
 % AGRADECIMENTOS
@@ -773,10 +748,8 @@ Este projeto foi possível devido ao apoio financeiro concedido pela Fundação 
 \section*{AGRADECIMENTOS}
 \addcontentsline{toc}{section}{AGRADECIMENTOS}
 
-Agradeço ao professor orientador Carlos Magno Sousa Junior pela orientação e apoio durante o desenvolvimento deste trabalho. Agradeço também à equipe do projeto de robótica educacional, em especial aos colaboradores que contribuíram nas etapas anteriores do sistema de irrigação.
+Agradeço ao professor orientador Carlos Magno Sousa Junior pela orientação e apoio durante o desenvolvimento deste trabalho. Agradeço também à bolsista anterior Sophia Di Consulin Almeida pelo excelente trabalho desenvolvido no sistema de irrigação, que serviu como base para as melhorias implementadas nesta etapa.
 
 Agradeço ao Instituto Estadual de Educação, Ciência e Tecnologia do Maranhão (IEMA), Unidade Gonçalves Dias, pela parceria e disponibilização do espaço para instalação do sistema.
-
-Agradeço à FAPEMA pelo apoio financeiro que viabilizou a realização deste projeto.
 
 \end{document}
