@@ -1,0 +1,782 @@
+% ============================================================
+% RELATÓRIO PARCIAL - SISTEMA DE IRRIGAÇÃO AUTOMÁTICA
+% Projeto: Robótica Educacional - UEMA/IEMA
+% Bolsista: Vinicius de Oliveira Souza
+% ============================================================
+% Para compilar no Overleaf: Use pdfLaTeX
+% ============================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% ============ PACOTES ============
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{times}                    % Fonte Times New Roman
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+
+% ============ CONFIGURAÇÕES DE PÁGINA (ABNT) ============
+\geometry{
+    a4paper,
+    left=3cm,
+    right=2cm,
+    top=3cm,
+    bottom=2cm
+}
+
+% Espaçamento 1,5
+\onehalfspacing
+
+% Recuo de parágrafo
+\setlength{\parindent}{1.25cm}
+
+% ============ COMANDO FONTE (ABNT) ============
+\newcommand{\fonte}[1]{\par\vspace{2pt}\footnotesize\textbf{Fonte:} #1}
+
+% ============ CONFIGURAÇÕES DE HYPERLINKS ============
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+% ============ CONFIGURAÇÕES DE CÓDIGO ============
+\lstset{
+    language=C++,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    breaklines=true,
+    captionpos=b,
+    tabsize=2
+}
+
+% ============ CONFIGURAÇÕES DO SUMÁRIO ============
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\contentsname}{SUMÁRIO}
+\renewcommand{\listfigurename}{LISTA DE FIGURAS}
+\renewcommand{\listtablename}{LISTA DE TABELAS}
+
+% ============ CONFIGURAÇÕES DE TÍTULOS ============
+\titleformat{\section}
+    {\normalfont\bfseries}{\thesection.}{0.5em}{\MakeUppercase}
+\titleformat{\subsection}
+    {\normalfont\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}
+    {\normalfont\bfseries}{\thesubsubsection.}{0.5em}{}
+
+% ============ DADOS DO PROJETO ============
+\newcommand{\meunome}{VINICIUS DE OLIVEIRA SOUZA}
+\newcommand{\orientador}{CARLOS MAGNO SOUSA JUNIOR}
+\newcommand{\codigoprojeto}{PJ155-2025/2026}
+\newcommand{\periodoinicio}{Setembro de 2025}
+\newcommand{\periodofim}{Janeiro de 2026}
+
+% ============ INÍCIO DO DOCUMENTO ============
+\begin{document}
+
+% ============================================================
+% CAPA
+% ============================================================
+\begin{titlepage}
+    \centering
+    
+    \textbf{UNIVERSIDADE ESTADUAL DO MARANHÃO}\\
+    \textbf{CENTRO DE CIÊNCIAS TECNOLÓGICAS}\\
+    \textbf{CURSO DE ENGENHARIA DE COMPUTAÇÃO}\\[0.5cm]
+    \textbf{PROGRAMA EXTENSÃO PARA TODOS -- PET -- EDITAL Nº 10/2024}\\
+    \textbf{PROEXAE-UEMA}\\[3cm]
+    
+    \textbf{Projeto do orientador:}\\
+    Robótica educacional\\[1.5cm]
+    
+    \textbf{Plano de trabalho do bolsista:}\\
+    Sistema de irrigação automática: aprimoramento e expansão\\
+    do projeto de robótica educacional entre a UEMA e o IEMA\\[3cm]
+    
+    \textbf{\meunome}\\
+    Bolsista\\[1cm]
+    
+    \textbf{\orientador}\\
+    Orientador\\[1.5cm]
+    
+    Código: \codigoprojeto\\[3cm]
+    
+    \textbf{SÃO LUÍS -- MA}\\
+    \textbf{2026}
+    
+\end{titlepage}
+
+% ============================================================
+% FOLHA DE ROSTO
+% ============================================================
+\newpage
+\thispagestyle{empty}
+\begin{center}
+    
+    \textbf{Projeto do orientador:}\\
+    Robótica educacional\\[1.5cm]
+    
+    \textbf{Plano de trabalho do bolsista:}\\
+    Sistema de irrigação automática: aprimoramento e expansão\\
+    do projeto de robótica educacional entre a UEMA e o IEMA\\[3cm]
+    
+    \textbf{RELATÓRIO PARCIAL}\\[2cm]
+    
+    Período: \periodoinicio{} a \periodofim{}\\[4cm]
+    
+    \rule{8cm}{0.4pt}\\
+    \meunome\\
+    Bolsista\\[2cm]
+    
+    \rule{8cm}{0.4pt}\\
+    \orientador\\
+    Orientador\\
+    
+\end{center}
+
+% ============================================================
+% RESUMO
+% ============================================================
+\newpage
+\begin{center}
+    \textbf{RESUMO}
+\end{center}
+
+\noindent
+O presente relatório parcial descreve as atividades desenvolvidas no âmbito do projeto de robótica educacional, com foco específico no aprimoramento do sistema de irrigação automática implementado em parceria entre a Universidade Estadual do Maranhão (UEMA) e o Instituto Estadual de Educação, Ciência e Tecnologia do Maranhão (IEMA). O sistema utiliza a plataforma Arduino UNO R3 para monitorar a umidade do solo por meio de sensores resistivos do tipo higrômetro (FC-28/YL-38/YL-69) e acionar automaticamente uma válvula solenoide para irrigação quando detectada condição de solo seco. Durante o período compreendido por este relatório, foram realizadas atividades de manutenção corretiva do circuito eletrônico, incluindo a correção de soldas e conexões deficientes, além da refatoração completa do código-fonte para correção de erros de sintaxe e implementação de novas funcionalidades. O sistema foi testado em laboratório e no local de instalação definitiva no IEMA, apresentando funcionamento satisfatório. Como próximas etapas, prevê-se a expansão do sistema para utilização de três sensores de umidade distribuídos pelo canteiro, com cálculo de média aritmética das leituras para maior precisão no acionamento da irrigação.
+
+\vspace{1cm}
+\noindent
+\textbf{Palavras-chave:} irrigação automática; Arduino; robótica educacional; automação; UEMA; IEMA.
+
+% ============================================================
+% SUMÁRIO
+% ============================================================
+\newpage
+\tableofcontents
+
+% ============================================================
+% LISTA DE FIGURAS
+% ============================================================
+\newpage
+\listoffigures
+
+% ============================================================
+% LISTA DE TABELAS
+% ============================================================
+\newpage
+\listoftables
+
+% ============================================================
+% 1. INTRODUÇÃO
+% ============================================================
+\newpage
+\section{INTRODUÇÃO}
+
+A automação de processos agrícolas representa uma das aplicações mais promissoras da robótica no contexto educacional e social. Sistemas de irrigação automatizados permitem o uso racional da água, recurso cada vez mais escasso, ao mesmo tempo em que dispensam a necessidade de monitoramento humano constante. No contexto educacional, tais sistemas constituem uma ferramenta pedagógica valiosa, permitindo que estudantes compreendam de forma prática conceitos de eletrônica, programação e sustentabilidade.
+
+O presente trabalho está inserido no projeto de extensão ``Robótica Educacional'', desenvolvido em parceria entre o curso de Engenharia de Computação da Universidade Estadual do Maranhão (UEMA) e o Instituto Estadual de Educação, Ciência e Tecnologia do Maranhão (IEMA). O projeto visa capacitar alunos do ensino fundamental e técnico em conhecimentos básicos de automação e robótica, promovendo a integração entre as instituições de ensino público.
+
+O sistema de irrigação automática objeto deste relatório foi originalmente desenvolvido no período anterior do projeto, com o objetivo de reaproveitar a água desperdiçada proveniente de bebedouros da instituição para irrigar a horta cultivada pelos alunos do IEMA, Unidade Gonçalves Dias, localizada em São Luís. O protótipo inicial apresentava um sensor de umidade, um módulo relé para acionamento de válvula solenoide e um display LCD para exibição de informações ao usuário.
+
+Durante a fase atual do projeto, foram identificadas necessidades de manutenção e aprimoramento do sistema, incluindo a correção de falhas de conexão no circuito, a refatoração do código-fonte para eliminação de erros e a expansão da capacidade de sensoriamento para cobertura de uma área maior do canteiro. Este relatório parcial apresenta as atividades realizadas até o momento, os resultados obtidos e as próximas etapas planejadas.
+
+O documento está organizado da seguinte forma: na Seção 2 são apresentados os objetivos do trabalho; na Seção 3 é apresentada a fundamentação teórica; na Seção 4 é descrita a metodologia adotada; na Seção 5 são detalhadas as atividades realizadas; na Seção 6 são apresentados os resultados parciais; na Seção 7 são descritas as próximas etapas; e na Seção 8 são apresentadas as considerações parciais.
+
+% ============================================================
+% 2. OBJETIVOS
+% ============================================================
+\section{OBJETIVOS}
+
+\subsection{Objetivo Geral}
+
+Aprimorar e expandir o sistema de irrigação automática desenvolvido no âmbito do projeto de robótica educacional, visando sua instalação definitiva na horta do Instituto Estadual de Educação, Ciência e Tecnologia do Maranhão (IEMA), em parceria com a Universidade Estadual do Maranhão (UEMA).
+
+\subsection{Objetivos Específicos}
+
+Para alcançar o objetivo geral proposto, foram definidos os seguintes objetivos específicos:
+
+\begin{itemize}[leftmargin=2cm]
+    \item Realizar diagnóstico completo do estado atual do circuito e identificar componentes com defeito ou mal contato;
+    \item Executar manutenção corretiva do circuito, incluindo correção de soldas e substituição de conexões deficientes;
+    \item Refatorar o código-fonte do sistema, corrigindo erros de sintaxe e implementando melhorias de funcionalidade;
+    \item Expandir o sistema para utilização de três sensores de umidade distribuídos pelo canteiro;
+    \item Implementar algoritmo de média aritmética das leituras dos sensores para maior precisão;
+    \item Realizar testes de funcionamento em laboratório e no local de instalação definitiva;
+    \item Documentar todas as etapas do desenvolvimento para fins de replicação e aprendizado.
+\end{itemize}
+
+% ============================================================
+% 3. FUNDAMENTAÇÃO TEÓRICA
+% ============================================================
+\section{FUNDAMENTAÇÃO TEÓRICA}
+
+\subsection{Robótica Educacional}
+
+A robótica educacional configura-se como uma metodologia de ensino que utiliza dispositivos robóticos como ferramentas para o desenvolvimento de competências técnicas e cognitivas. Segundo Guedes e Kerber (2010), a robótica pode favorecer uma melhoria significativa no desenvolvimento de habilidades e competências de alunos em diversas áreas do conhecimento, promovendo a interdisciplinaridade entre campos como física, matemática, eletrônica e programação.
+
+A inserção da robótica no ambiente escolar possibilita a inclusão de alunos de diversas faixas etárias e com diferentes níveis de conhecimento prévio, permitindo que o aprendizado ocorra de forma prática e contextualizada (AROCENA; REKALDE-RODRIGUEZ; GRANA, 2018). Neste contexto, projetos como sistemas de irrigação automatizados representam uma oportunidade de aplicar conceitos teóricos em soluções que atendem demandas reais da comunidade.
+
+\subsection{Plataforma Arduino}
+
+O Arduino é uma plataforma de prototipagem eletrônica de código aberto, composta por hardware e software de fácil utilização. A placa Arduino UNO R3, utilizada neste projeto, possui um microcontrolador ATmega328P com 14 pinos de entrada/saída digital, 6 entradas analógicas e opera com tensão de 5V (ARDUINO, 2024).
+
+A escolha do Arduino para projetos educacionais justifica-se por sua acessibilidade, baixo custo e ampla documentação disponível. A linguagem de programação utilizada é baseada em C/C++, com abstrações que facilitam o acesso aos periféricos do microcontrolador, tornando-a adequada para iniciantes em programação.
+
+\subsection{Sensores de Umidade do Solo}
+
+Os sensores de umidade do solo do tipo FC-28, YL-38 e YL-69 são dispositivos resistivos que funcionam por princípio de condução elétrica. O sensor é composto por duas hastes metálicas que, quando inseridas no solo, permitem a passagem de corrente elétrica proporcional à quantidade de água presente no substrato.
+
+O funcionamento baseia-se no seguinte princípio: quando o solo está úmido, a água presente facilita a condução elétrica entre as hastes, resultando em uma resistência baixa e, consequentemente, uma tensão de saída baixa. Quando o solo está seco, a ausência de água aumenta a resistência entre as hastes, elevando a tensão de saída. O módulo comparador acoplado ao sensor converte essa variação de resistência em um sinal analógico de 0 a 1023 (para conversores AD de 10 bits), que pode ser interpretado pelo microcontrolador.
+
+\subsection{Atuadores: Válvula Solenoide e Módulo Relé}
+
+A válvula solenoide é um dispositivo eletromecânico que controla o fluxo de fluidos (líquidos ou gases) através de um orifício, utilizando uma bobina eletromagnética. Quando energizada, a bobina gera um campo magnético que move um êmbolo, permitindo ou bloqueando a passagem do fluido.
+
+O módulo relé funciona como uma chave eletromecânica que permite ao microcontrolador controlar cargas de maior potência. O Arduino opera com tensões e correntes limitadas (5V, poucos miliamperes), insuficientes para acionar diretamente uma válvula solenoide de 12V. O relé atua como intermediário, sendo acionado pelo sinal de baixa potência do Arduino e fechando o circuito de alta potência da válvula.
+
+\subsection{Interface com Usuário: Display LCD}
+
+O display de cristal líquido (LCD) 16x2 permite a exibição de informações ao usuário em duas linhas de 16 caracteres cada. A comunicação com o Arduino pode ser realizada em modo paralelo de 4 ou 8 bits, utilizando a biblioteca LiquidCrystal.h. O display proporciona feedback visual sobre o estado do sistema, exibindo valores de umidade e status da irrigação.
+
+% ============================================================
+% 4. METODOLOGIA
+% ============================================================
+\section{METODOLOGIA}
+
+O desenvolvimento do trabalho foi organizado nas seguintes etapas metodológicas:
+
+\begin{enumerate}[leftmargin=2cm]
+    \item \textbf{Levantamento bibliográfico:} pesquisa em fontes especializadas sobre sistemas de irrigação automatizados, plataforma Arduino e sensores de umidade, visando compreender o estado da arte e identificar as melhores práticas para implementação;
+    
+    \item \textbf{Diagnóstico do sistema existente:} análise detalhada do circuito e código-fonte originais, identificando pontos de falha, erros de programação e oportunidades de melhoria;
+    
+    \item \textbf{Manutenção corretiva:} execução de reparos no circuito, incluindo refazer soldas defeituosas, verificar continuidade das conexões e substituir componentes danificados;
+    
+    \item \textbf{Refatoração do código:} reescrita do código-fonte para correção de erros de sintaxe, implementação de boas práticas de programação e adição de novas funcionalidades;
+    
+    \item \textbf{Testes em laboratório:} validação do funcionamento do sistema em ambiente controlado, utilizando amostras de solo com diferentes níveis de umidade;
+    
+    \item \textbf{Visitas técnicas ao IEMA:} realização de testes no local de instalação definitiva, verificando compatibilidade com a infraestrutura existente e condições de operação;
+    
+    \item \textbf{Documentação:} registro de todas as etapas do desenvolvimento, incluindo esquemas de circuito, código-fonte comentado e procedimentos de instalação.
+\end{enumerate}
+
+% ============================================================
+% 5. ATIVIDADES REALIZADAS
+% ============================================================
+\section{ATIVIDADES REALIZADAS}
+
+\subsection{Diagnóstico do Sistema Original}
+
+A primeira etapa do trabalho consistiu na análise detalhada do sistema de irrigação desenvolvido no período anterior do projeto. O protótipo original apresentava os seguintes componentes: Arduino UNO R3, display LCD 16x2, sensor de umidade do solo FC-28, módulo relé de 1 canal, válvula solenoide 12V e fonte de alimentação.
+
+Durante a inspeção, foram identificados os seguintes problemas:
+
+\begin{itemize}[leftmargin=2cm]
+    \item Soldas frias em diversos pontos do circuito, causando mal contato intermitente;
+    \item Conexões frouxas entre os componentes e a placa ilhada;
+    \item Erros de sintaxe no código-fonte que impediam a compilação;
+    \item Lógica de exibição no LCD com comportamento inconsistente.
+\end{itemize}
+
+\subsection{Manutenção do Circuito Eletrônico}
+
+Com base no diagnóstico realizado, procedeu-se à manutenção corretiva do circuito. As atividades executadas incluíram:
+
+\begin{itemize}[leftmargin=2cm]
+    \item Refazer todas as soldas identificadas como defeituosas;
+    \item Verificar continuidade elétrica de todas as trilhas e conexões;
+    \item Testar individualmente cada componente para confirmar funcionamento;
+    \item Reorganizar a disposição dos componentes na placa para melhor acessibilidade.
+\end{itemize}
+
+A Figura \ref{fig:sensor-umido} apresenta o sensor de umidade inserido em amostra de solo úmido durante os testes de funcionamento.
+
+\begin{figure}[H]
+    \centering
+    % SUBSTITUA PELO CAMINHO DA SUA IMAGEM
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}\textbf{[INSERIR IMAGEM: sensor-umido.jpg]}\\\textit{Foto do sensor FC-28 inserido em solo úmido}\vspace{3cm}}}
+    \caption{Sensor de umidade FC-28 inserido em amostra de solo úmido durante teste.}
+    \label{fig:sensor-umido}
+    \fonte{Autor, 2025.}
+\end{figure}
+
+A Figura \ref{fig:sensor-seco} apresenta o sensor de umidade em condição de solo seco, demonstrando a diferença de leitura.
+
+\begin{figure}[H]
+    \centering
+    % SUBSTITUA PELO CAMINHO DA SUA IMAGEM
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}\textbf{[INSERIR IMAGEM: sensor-seco.jpg]}\\\textit{Foto do sensor FC-28 em solo seco}\vspace{3cm}}}
+    \caption{Sensor de umidade FC-28 em condição de solo seco durante teste.}
+    \label{fig:sensor-seco}
+    \fonte{Autor, 2025.}
+\end{figure}
+
+\subsection{Refatoração do Código-Fonte}
+
+O código-fonte original apresentava diversos erros de sintaxe que impediam sua compilação no Arduino IDE. A Tabela \ref{tab:erros-codigo} apresenta os erros identificados e suas respectivas correções.
+
+\begin{table}[H]
+    \centering
+    \caption{Erros identificados no código original e correções aplicadas.}
+    \label{tab:erros-codigo}
+    \begin{tabular}{|c|p{5cm}|p{5cm}|}
+        \hline
+        \textbf{Linha} & \textbf{Erro Original} & \textbf{Correção} \\
+        \hline
+        22 & \texttt{Serial.Begin(9600)} & \texttt{Serial.begin(9600)} \\
+        \hline
+        27 & \texttt{digitalWrite(Rele,HIGHT)} & \texttt{digitalWrite(Rele,HIGH)} \\
+        \hline
+        49 & \texttt{LCD.setCursor("0,1")} & \texttt{LCD.setCursor(0,1)} \\
+        \hline
+        58 & \texttt{digitalWrite(rele,LOW)} & \texttt{digitalWrite(Rele,LOW)} \\
+        \hline
+        66 & \texttt{digitalWrite(Rele,HIGHT)} & \texttt{digitalWrite(Rele,HIGH)} \\
+        \hline
+    \end{tabular}
+    \fonte{Autor, 2025.}
+\end{table}
+
+Além das correções de sintaxe, foram implementadas melhorias significativas no código, resultando na versão 2.0 do sistema. A Tabela \ref{tab:comparativo-versoes} apresenta um comparativo entre as versões.
+
+\begin{table}[H]
+    \centering
+    \caption{Comparativo entre as versões do código do sistema de irrigação.}
+    \label{tab:comparativo-versoes}
+    \begin{tabular}{|p{5cm}|c|c|}
+        \hline
+        \textbf{Funcionalidade} & \textbf{v1.0} & \textbf{v2.0} \\
+        \hline
+        Quantidade de sensores & 1 & 3 \\
+        \hline
+        Cálculo de média aritmética & Não & Sim \\
+        \hline
+        Exibição em porcentagem & Não & Sim \\
+        \hline
+        Mensagem de boas-vindas & Não & Sim \\
+        \hline
+        Log via Serial Monitor & Não & Sim \\
+        \hline
+        Documentação no código & Parcial & Completa \\
+        \hline
+        Erros de sintaxe & 5 & 0 \\
+        \hline
+    \end{tabular}
+    \fonte{Autor, 2025.}
+\end{table}
+
+\subsection{Diagrama do Circuito}
+
+A Figura \ref{fig:diagrama-circuito} apresenta o diagrama esquemático do circuito do sistema de irrigação, incluindo a pinagem de todos os componentes conectados ao Arduino UNO.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.9, every node/.style={font=\footnotesize}]
+        % Arduino
+        \draw[thick, fill=blue!20] (0,0) rectangle (4,6);
+        \node at (2,5.5) {\textbf{ARDUINO UNO}};
+        
+        % Pinos digitais
+        \node[left] at (0,4.5) {D2};
+        \node[left] at (0,4.0) {D3};
+        \node[left] at (0,3.5) {D4};
+        \node[left] at (0,3.0) {D5};
+        \node[left] at (0,2.5) {D6};
+        \node[left] at (0,2.0) {D7};
+        \node[left] at (0,1.5) {D8};
+        
+        % Pinos analógicos
+        \node[right] at (4,4.5) {A0};
+        \node[right] at (4,4.0) {A1};
+        \node[right] at (4,3.5) {A2};
+        
+        % Alimentação
+        \node[right] at (4,1.5) {5V};
+        \node[right] at (4,1.0) {GND};
+        
+        % LCD
+        \draw[thick, fill=green!20] (-6,1.5) rectangle (-3,5);
+        \node at (-4.5,4.5) {\textbf{LCD 16x2}};
+        \node at (-4.5,3.5) {RS E D4};
+        \node at (-4.5,3.0) {D5 D6 D7};
+        
+        % Conexões LCD
+        \draw[->] (-3,4) -- (0,4.5);
+        \draw[->] (-3,3.5) -- (0,4.0);
+        \draw[->] (-3,3.0) -- (0,3.5);
+        \draw[->] (-3,2.5) -- (0,3.0);
+        \draw[->] (-3,2.2) -- (0,2.5);
+        \draw[->] (-3,1.9) -- (0,2.0);
+        
+        % Sensores
+        \draw[thick, fill=yellow!20] (7,3.5) rectangle (10,5.5);
+        \node at (8.5,5.0) {\textbf{SENSOR 1}};
+        \node at (8.5,4.5) {FC-28};
+        \node at (8.5,4.0) {(A0)};
+        
+        \draw[thick, fill=yellow!20] (7,1.5) rectangle (10,3.3);
+        \node at (8.5,2.8) {\textbf{SENSOR 2}};
+        \node at (8.5,2.3) {FC-28};
+        \node at (8.5,1.8) {(A1)};
+        
+        \draw[thick, fill=yellow!20] (7,-0.5) rectangle (10,1.3);
+        \node at (8.5,0.8) {\textbf{SENSOR 3}};
+        \node at (8.5,0.3) {FC-28};
+        \node at (8.5,-0.2) {(A2)};
+        
+        % Conexões sensores
+        \draw[->] (4,4.5) -- (7,4.5);
+        \draw[->] (4,4.0) -- (5,4.0) -- (5,2.5) -- (7,2.5);
+        \draw[->] (4,3.5) -- (5.5,3.5) -- (5.5,0.5) -- (7,0.5);
+        
+        % Relé
+        \draw[thick, fill=red!20] (-6,-1.5) rectangle (-3,1);
+        \node at (-4.5,0.5) {\textbf{MÓDULO}};
+        \node at (-4.5,0) {\textbf{RELÉ}};
+        \node at (-4.5,-0.5) {(D8)};
+        \node at (-4.5,-1.0) {1 Canal};
+        
+        % Conexão relé
+        \draw[->] (0,1.5) -- (-1,1.5) -- (-1,0) -- (-3,0);
+        
+        % Válvula
+        \draw[thick, fill=cyan!20] (-6,-4) rectangle (-3,-2);
+        \node at (-4.5,-2.5) {\textbf{VÁLVULA}};
+        \node at (-4.5,-3.0) {\textbf{SOLENOIDE}};
+        \node at (-4.5,-3.5) {12V};
+        
+        % Conexão válvula
+        \draw[->] (-4.5,-1.5) -- (-4.5,-2);
+        
+        % Legenda
+        \draw[thick] (5,-3) rectangle (10,-1);
+        \node at (7.5,-1.5) {\textbf{LEGENDA}};
+        \node[left] at (10,-2.0) {--- Conexão Digital};
+        \node[left] at (10,-2.5) {--- Conexão Analógica};
+        
+    \end{tikzpicture}
+    \caption{Diagrama esquemático do circuito do sistema de irrigação.}
+    \label{fig:diagrama-circuito}
+    \fonte{Autor, 2025.}
+\end{figure}
+
+A Tabela \ref{tab:pinagem} detalha a pinagem completa do sistema.
+
+\begin{table}[H]
+    \centering
+    \caption{Pinagem do sistema de irrigação no Arduino UNO.}
+    \label{tab:pinagem}
+    \begin{tabular}{|l|c|l|}
+        \hline
+        \textbf{Componente} & \textbf{Pino Arduino} & \textbf{Tipo} \\
+        \hline
+        LCD RS & D7 & Digital (Saída) \\
+        \hline
+        LCD E (Enable) & D6 & Digital (Saída) \\
+        \hline
+        LCD D4 & D5 & Digital (Saída) \\
+        \hline
+        LCD D5 & D4 & Digital (Saída) \\
+        \hline
+        LCD D6 & D3 & Digital (Saída) \\
+        \hline
+        LCD D7 & D2 & Digital (Saída) \\
+        \hline
+        Módulo Relé & D8 & Digital (Saída) \\
+        \hline
+        Sensor de Umidade 1 & A0 & Analógico (Entrada) \\
+        \hline
+        Sensor de Umidade 2 & A1 & Analógico (Entrada) \\
+        \hline
+        Sensor de Umidade 3 & A2 & Analógico (Entrada) \\
+        \hline
+    \end{tabular}
+    \fonte{Autor, 2025.}
+\end{table}
+
+\subsection{Diagrama de Fluxo de Operação}
+
+A Figura \ref{fig:fluxograma} apresenta o fluxograma de operação do sistema de irrigação, detalhando a lógica de funcionamento implementada no código versão 2.0.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm, scale=0.85, every node/.style={transform shape}]
+        % Estilos
+        \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!30]
+        \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!20]
+        \tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!20, aspect=2]
+        \tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=yellow!20]
+        \tikzstyle{arrow} = [thick,->,>=stealth]
+        
+        % Nós
+        \node (inicio) [startstop] {INÍCIO};
+        \node (init) [process, below of=inicio] {Inicializa Sistema};
+        \node (boasvindas) [io, below of=init] {Exibe "Bem-vindo"};
+        \node (leitura) [process, below of=boasvindas] {Lê Sensores 1, 2, 3};
+        \node (media) [process, below of=leitura] {Calcula Média};
+        \node (porcentagem) [process, below of=media] {Converte para \%};
+        \node (decisao) [decision, below of=porcentagem, yshift=-0.5cm] {Média $>$ 500?};
+        \node (liga) [process, left of=decisao, xshift=-3cm] {Liga Bomba};
+        \node (desliga) [process, right of=decisao, xshift=3cm] {Desliga Bomba};
+        \node (lcdirrg) [io, below of=liga] {"Irrigando"};
+        \node (lcdumido) [io, below of=desliga] {"Solo Úmido"};
+        \node (delay) [process, below of=decisao, yshift=-3cm] {Aguarda 2s};
+        
+        % Setas
+        \draw [arrow] (inicio) -- (init);
+        \draw [arrow] (init) -- (boasvindas);
+        \draw [arrow] (boasvindas) -- (leitura);
+        \draw [arrow] (leitura) -- (media);
+        \draw [arrow] (media) -- (porcentagem);
+        \draw [arrow] (porcentagem) -- (decisao);
+        \draw [arrow] (decisao) -- node[anchor=south] {Sim} (liga);
+        \draw [arrow] (decisao) -- node[anchor=south] {Não} (desliga);
+        \draw [arrow] (liga) -- (lcdirrg);
+        \draw [arrow] (desliga) -- (lcdumido);
+        \draw [arrow] (lcdirrg) |- (delay);
+        \draw [arrow] (lcdumido) |- (delay);
+        \draw [arrow] (delay.west) -- ++(-4,0) |- (leitura.west);
+        
+    \end{tikzpicture}
+    \caption{Fluxograma de operação do sistema de irrigação versão 2.0.}
+    \label{fig:fluxograma}
+    \fonte{Autor, 2025.}
+\end{figure}
+
+\subsection{Testes de Funcionamento}
+
+Após a manutenção do circuito e refatoração do código, foram realizados testes de funcionamento tanto em laboratório quanto no local de instalação definitiva no IEMA.
+
+A Figura \ref{fig:lcd-umido} apresenta o display LCD exibindo a condição de solo úmido durante os testes.
+
+\begin{figure}[H]
+    \centering
+    % SUBSTITUA PELO CAMINHO DA SUA IMAGEM
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}\textbf{[INSERIR IMAGEM: lcd-umido.jpg]}\\\textit{Foto do LCD exibindo "Solo Umido"}\vspace{3cm}}}
+    \caption{Display LCD exibindo condição de solo úmido e porcentagem de umidade.}
+    \label{fig:lcd-umido}
+    \fonte{Autor, 2025.}
+\end{figure}
+
+A Figura \ref{fig:lcd-irrigando} apresenta o display LCD durante o acionamento da irrigação.
+
+\begin{figure}[H]
+    \centering
+    % SUBSTITUA PELO CAMINHO DA SUA IMAGEM
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}\textbf{[INSERIR IMAGEM: lcd-irrigando.jpg]}\\\textit{Foto do LCD exibindo "Irrigando"}\vspace{3cm}}}
+    \caption{Display LCD exibindo status de irrigação ativa.}
+    \label{fig:lcd-irrigando}
+    \fonte{Autor, 2025.}
+\end{figure}
+
+A Figura \ref{fig:bomba-solenoide} apresenta a válvula solenoide utilizada no sistema.
+
+\begin{figure}[H]
+    \centering
+    % SUBSTITUA PELO CAMINHO DA SUA IMAGEM
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}\textbf{[INSERIR IMAGEM: bomba-solenoide.jpg]}\\\textit{Foto da válvula solenoide 12V}\vspace{3cm}}}
+    \caption{Válvula solenoide 12V utilizada para controle do fluxo de água.}
+    \label{fig:bomba-solenoide}
+    \fonte{Autor, 2025.}
+\end{figure}
+
+\subsection{Visitas Técnicas ao IEMA}
+
+Foram realizadas visitas técnicas à Unidade Gonçalves Dias do Instituto Estadual de Educação, Ciência e Tecnologia do Maranhão (IEMA), localizada em São Luís, para verificação das condições de instalação e realização de testes \textit{in loco}. Durante as visitas, foram observados os seguintes aspectos:
+
+\begin{itemize}[leftmargin=2cm]
+    \item Localização da horta e distância até o bebedouro (fonte de água);
+    \item Disponibilidade de ponto de energia elétrica para alimentação do sistema;
+    \item Dimensões do canteiro para definição do posicionamento dos sensores;
+    \item Condições de proteção do circuito contra intempéries.
+\end{itemize}
+
+Os testes realizados no local confirmaram o funcionamento adequado do sistema, porém foi identificada a necessidade de uma bomba auxiliar para aumentar a pressão da água, visto que a gravidade não é suficiente para transportar a água do bebedouro até a horta.
+
+% ============================================================
+% 6. RESULTADOS PARCIAIS
+% ============================================================
+\section{RESULTADOS PARCIAIS}
+
+Até o presente momento, foram alcançados os seguintes resultados:
+
+\begin{enumerate}[leftmargin=2cm]
+    \item \textbf{Manutenção do circuito concluída:} todas as soldas defeituosas foram refeitas e as conexões verificadas, eliminando os problemas de mal contato identificados no diagnóstico inicial;
+    
+    \item \textbf{Código-fonte refatorado:} os cinco erros de sintaxe foram corrigidos e o código foi atualizado para a versão 2.0, com suporte a três sensores e diversas melhorias de funcionalidade;
+    
+    \item \textbf{Documentação técnica elaborada:} o código-fonte foi extensivamente comentado, explicando o funcionamento de cada função utilizada;
+    
+    \item \textbf{Testes bem-sucedidos:} o sistema foi testado em laboratório e no IEMA, apresentando funcionamento correto na detecção de umidade e acionamento do relé;
+    
+    \item \textbf{Identificação de pendências:} foi verificada a necessidade de bomba auxiliar para pressurização da água.
+\end{enumerate}
+
+A Tabela \ref{tab:resultados} apresenta o status de cada atividade planejada.
+
+\begin{table}[H]
+    \centering
+    \caption{Status das atividades do projeto.}
+    \label{tab:resultados}
+    \begin{tabular}{|p{8cm}|c|}
+        \hline
+        \textbf{Atividade} & \textbf{Status} \\
+        \hline
+        Levantamento bibliográfico & Concluído \\
+        \hline
+        Diagnóstico do sistema original & Concluído \\
+        \hline
+        Manutenção corretiva do circuito & Concluído \\
+        \hline
+        Refatoração do código-fonte & Concluído \\
+        \hline
+        Testes em laboratório & Concluído \\
+        \hline
+        Visitas técnicas ao IEMA & Concluído \\
+        \hline
+        Montagem do circuito com 3 sensores & Em andamento \\
+        \hline
+        Instalação definitiva no IEMA & Pendente \\
+        \hline
+        Documentação final & Em andamento \\
+        \hline
+    \end{tabular}
+    \fonte{Autor, 2025.}
+\end{table}
+
+% ============================================================
+% 7. PRÓXIMAS ETAPAS
+% ============================================================
+\section{PRÓXIMAS ETAPAS}
+
+Para a continuidade do projeto, estão planejadas as seguintes etapas:
+
+\subsection{Fase 1: Expansão do Hardware (Curto Prazo)}
+
+\begin{itemize}[leftmargin=2cm]
+    \item Aquisição de dois sensores de umidade adicionais (FC-28);
+    \item Montagem do circuito com os três sensores nas portas A0, A1 e A2;
+    \item Definição do posicionamento ideal dos sensores no canteiro;
+    \item Confecção de caixa de proteção resistente a intempéries.
+\end{itemize}
+
+\subsection{Fase 2: Testes e Calibração (Curto Prazo)}
+
+\begin{itemize}[leftmargin=2cm]
+    \item Calibração do limite de umidade para o solo específico da horta;
+    \item Testes de funcionamento prolongado (operação contínua por 48+ horas);
+    \item Ajuste fino do algoritmo de média aritmética;
+    \item Verificação do consumo de energia e autonomia do sistema.
+\end{itemize}
+
+\subsection{Fase 3: Instalação Definitiva (Médio Prazo)}
+
+\begin{itemize}[leftmargin=2cm]
+    \item Instalação do sistema na horta do IEMA;
+    \item Conexão com a fonte de água (bebedouro);
+    \item Instalação de bomba auxiliar para pressurização, se necessário;
+    \item Treinamento dos alunos e funcionários para operação do sistema.
+\end{itemize}
+
+\subsection{Fase 4: Melhorias Futuras (Longo Prazo)}
+
+\begin{itemize}[leftmargin=2cm]
+    \item Adição de módulo RTC para irrigação programada por horário;
+    \item Implementação de conectividade WiFi para monitoramento remoto;
+    \item Integração de sensor de nível do reservatório;
+    \item Desenvolvimento de interface web ou aplicativo mobile;
+    \item Elaboração de artigo científico com os resultados obtidos.
+\end{itemize}
+
+% ============================================================
+% 8. CONSIDERAÇÕES PARCIAIS
+% ============================================================
+\section{CONSIDERAÇÕES PARCIAIS}
+
+O presente relatório apresentou as atividades desenvolvidas no período de \periodoinicio{} a \periodofim{} no âmbito do projeto de robótica educacional, com foco no aprimoramento do sistema de irrigação automática.
+
+Os objetivos propostos para esta etapa foram parcialmente alcançados. A manutenção do circuito eletrônico foi concluída com sucesso, eliminando os problemas de mal contato que comprometiam o funcionamento do sistema original. O código-fonte foi completamente refatorado, corrigindo erros de sintaxe e implementando melhorias significativas, como suporte a múltiplos sensores, exibição em porcentagem e mensagens de boas-vindas ao usuário.
+
+Os testes realizados tanto em laboratório quanto no local de instalação demonstraram o funcionamento adequado do sistema na detecção de umidade e acionamento do relé. Foi identificada, contudo, a necessidade de uma bomba auxiliar para garantir pressão suficiente no transporte da água até a horta.
+
+Como próximos passos, está prevista a montagem do circuito expandido com três sensores de umidade, a calibração do sistema para as condições específicas do solo da horta do IEMA e a instalação definitiva do equipamento. Espera-se que, ao final do projeto, o sistema de irrigação contribua para a manutenção sustentável da horta escolar, além de servir como ferramenta pedagógica para os alunos.
+
+% ============================================================
+% REFERÊNCIAS
+% ============================================================
+\newpage
+\section*{REFERÊNCIAS}
+\addcontentsline{toc}{section}{REFERÊNCIAS}
+
+\noindent
+ARDUINO. Arduino UNO R3. Disponível em: https://www.arduino.cc/en/Main/ArduinoBoardUno. Acesso em: 30 jan. 2026.
+
+\vspace{0.5cm}
+\noindent
+AROCENA, I.; REKALDE-RODRIGUES, I.; GRANA, M. Social robots for children with autism spectrum conditions: A review of some studies. \textbf{Zenodo}, 2018.
+
+\vspace{0.5cm}
+\noindent
+DAMASEVICIUS, R.; MASKELIUNAS, R.; BLAZUSKAS, T. Faster pedagogical framework for steam educational based on educational robotics. \textbf{International Journal of Engineering and Technology}, v. 7, p. 138-142, 2018.
+
+\vspace{0.5cm}
+\noindent
+GUEDES, A.; KERBER, F. Usando a robótica como meio educativo. \textbf{Unoesc \& Ciência}, v. 1, n. 1, p. 9-16, 2010.
+
+\vspace{0.5cm}
+\noindent
+INC. Robotics. Disponível em: https://www.inc.com/encyclopedia/robotics.html. Acesso em: 30 jan. 2026.
+
+% ============================================================
+% APOIO
+% ============================================================
+\newpage
+\section*{APOIO}
+\addcontentsline{toc}{section}{APOIO}
+
+Este projeto foi possível devido ao apoio financeiro concedido pela Fundação de Amparo à Pesquisa e ao Desenvolvimento Científico e Tecnológico do Maranhão (FAPEMA).
+
+% ============================================================
+% AGRADECIMENTOS
+% ============================================================
+\section*{AGRADECIMENTOS}
+\addcontentsline{toc}{section}{AGRADECIMENTOS}
+
+Agradeço ao professor orientador Carlos Magno Sousa Junior pela orientação e apoio durante o desenvolvimento deste trabalho. Agradeço também à equipe do projeto de robótica educacional, em especial aos colaboradores que contribuíram nas etapas anteriores do sistema de irrigação.
+
+Agradeço ao Instituto Estadual de Educação, Ciência e Tecnologia do Maranhão (IEMA), Unidade Gonçalves Dias, pela parceria e disponibilização do espaço para instalação do sistema.
+
+Agradeço à FAPEMA pelo apoio financeiro que viabilizou a realização deste projeto.
+
+\end{document}
